@@ -5,11 +5,11 @@ import numpy as np
 from ase.units import Debye
 import os
 
-calc = Vasp(’molecules/co-centered’)
+calc = Vasp('molecules/co-centered')
 atoms = calc.get_atoms()
 calc.stop_if(atoms.get_potential_energy() is None)
 
-vcd = VaspChargeDensity(’molecules/co-centered/CHG’)
+vcd = VaspChargeDensity('molecules/co-centered/CHG')
 
 cd = np.array(vcd.chg[0])
 
@@ -53,7 +53,7 @@ electron_dipole_moment = -electron_density_center * total_electron_charge
 from vasp.POTCAR import get_ZVAL
 
 LOP = calc.get_pseudopotentials()
-ppp = os.environ[’VASP_PP_PATH’]
+ppp = os.environ['VASP_PP_PATH']
 
 zval = {}
 for sym, ppath, hash in LOP:
@@ -75,5 +75,5 @@ ion_dipole_moment = ion_charge_center * total_ion_charge
 dipole_vector = (ion_dipole_moment + electron_dipole_moment)
 
 dipole_moment = ((dipole_vector**2).sum())**0.5 / Debye
-print(’The dipole vector is {0}’.format(dipole_vector))
-print(’The dipole moment is {0:1.2f} Debye’.format(dipole_moment))
+print('The dipole vector is {0}'.format(dipole_vector))
+print('The dipole moment is {0:1.2f} Debye'.format(dipole_moment))
