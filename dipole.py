@@ -42,8 +42,8 @@ voxel_volume = atoms.get_volume() / nelements
 total_electron_charge = -cd.sum() * voxel_volume
 
 electron_density_center = np.array([(cd * x).sum(),
-(cd * y).sum(),
-(cd * z).sum()])
+                                    (cd * y).sum(),
+                                    (cd * z).sum()])
 electron_density_center *= voxel_volume
 electron_density_center /= total_electron_charge
 
@@ -57,17 +57,17 @@ ppp = os.environ['VASP_PP_PATH']
 
 zval = {}
 for sym, ppath, hash in LOP:
-fullpath = os.path.join(ppp, ppath)
-z = get_ZVAL(fullpath)
-zval[sym] = z
-ion_charge_center = np.array([0.0, 0.0, 0.0])
-total_ion_charge = 0.0
+    fullpath = os.path.join(ppp, ppath)
+    z = get_ZVAL(fullpath)
+    zval[sym] = z
+    ion_charge_center = np.array([0.0, 0.0, 0.0])
+    total_ion_charge = 0.0
 
 for atom in atoms:
-Z = zval[atom.symbol]
-total_ion_charge += Z
-pos = atom.position
-ion_charge_center += Z * pos
+    Z = zval[atom.symbol]
+    total_ion_charge += Z
+    pos = atom.position
+    ion_charge_center += Z * pos
 
 ion_charge_center /= total_ion_charge
 ion_dipole_moment = ion_charge_center * total_ion_charge
